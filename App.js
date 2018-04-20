@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Registration } from './src/screens/auth/registration'
 
 export default class App extends React.Component {
   render() {
-    return (
+    return ([
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
+        <Text>TEST!</Text>
+      </View>,
+      <Registration></Registration>
+    ]);
   }
 }
 
