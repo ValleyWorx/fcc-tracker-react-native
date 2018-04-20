@@ -8,7 +8,7 @@ export const Header = (props) => {
 
     return (
         <View style={viewStyle}>
-            <Image style={imageStyle} source={require('../img/freeCodeCamp.png')} />
+            <Image style={imageStyle} source={require('../../assets/img/freeCodeCamp.png')} />
         </View>
     );
 };
@@ -28,4 +28,3 @@ const styles = {
         resizeMode: 'contain'
     }
 };
-
