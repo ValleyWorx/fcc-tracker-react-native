@@ -2,14 +2,28 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export class Registration extends React.Component {
+  constructor(props) {
+    super(props);
+    this.newUser = {
+      email: 'Email',
+      password: 'Password'
+     };
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>TEST!</Text>
+        <Text>FCC Tracker!</Text>
+
         <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        style={styles.textInput}
         onChangeText={(text) => this.setState({text})}
-        value={"test"}
+        value={this.newUser.email}
+        />
+        <TextInput
+        style={styles.textInput}
+        onChangeText={(text) => this.setState({text})}
+        value={this.newUser.password}
         />
       </View>
     );
@@ -23,4 +37,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textInput: {
+    height: 40,
+    width: 200,
+    padding: 10,
+    borderColor: 'gray',
+    borderWidth: 1
+  }
 });
