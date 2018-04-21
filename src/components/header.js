@@ -17,8 +17,10 @@ const styles = {
     viewStyle: {
         width: "100%",
         // flex: 1,
+        position: 'relative',
+        top: 10,
         justifyContent: "flex-start",
-        height: 55,
+        height: 90,
         backgroundColor: "#006400"
     },
     imageStyle: {
