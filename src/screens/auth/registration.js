@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image, Button, TouchableOpacity } from 'react-native';
-import { Header } from '../../components/header';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { Header }  from '../../components/header';
+import FccButton from '../../components/fcc-button';
 
 export class Registration extends React.Component {
   constructor(props) {
@@ -18,35 +19,29 @@ export class Registration extends React.Component {
         <Header></Header>
 
         <View style={styles.backgroundContainer}>
-        <Image style={styles.backgroundImage} source={require('./../../../assets/img/fcc.png')}></Image>
+          <Image style={styles.backgroundImage} source={require('./../../../assets/img/fcc.png')}></Image>
 
-        <View style={styles.formContainer}>
-        <Text style={styles.text}>Activity Tracker!</Text>
-        <TextInput
-        style={styles.textInput}
-        onChangeText={(text) => this.setState({text})}
-        value={this.newUser.email}
-        />
-        <TextInput
-        style={styles.textInput}
-        onChangeText={(text) => this.setState({text})}
-        value={this.newUser.password}
-        />
-        <TextInput
-        style={styles.textInput}
-        onChangeText={(text) => this.setState({text})}
-        value={this.newUser.fccCode}
-        />
-
-        <TouchableOpacity style={styles.SignUpButton}
-          onPress={test => {
-            console.log(test);
-          }}
-        ><Text>Sign Up</Text></TouchableOpacity>
+          <View style={styles.formContainer}>
+            <Text style={styles.text}>Activity Tracker!</Text>
+            <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => this.setState({text})}
+            value={this.newUser.email}
+            />
+            <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => this.setState({text})}
+            value={this.newUser.password}
+            />
+            <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => this.setState({text})}
+            value={this.newUser.fccCode}
+            />
+            <FccButton buttonText={'Sign Up'} />
+          </View>
 
         </View>
-        </View>
-
 
       </View>
     );
@@ -91,13 +86,4 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%'
   },
-  SignUpButton: {
-    backgroundColor: '#FF9C2A',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginTop: 10,
-    borderColor: '#006400',
-    borderWidth: 1,
-    borderRadius: 5
-  }
 });

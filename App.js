@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { Registration } from './src/screens/auth/registration';
-import { Header } from './src/components/header';
 
 export default class App extends React.Component {
   render() {
