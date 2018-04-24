@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet,
+         Text,
+         View,
+         TextInput,
+         Image,
+         TouchableOpacity,
+         KeyboardAvoidingView } from 'react-native';
 import { Header }  from '../../components/header';
 import FccButton from '../../components/fcc-button';
 
@@ -21,7 +27,7 @@ export class Registration extends React.Component {
         <View style={styles.backgroundContainer}>
           <Image style={styles.backgroundImage} source={require('./../../../assets/img/fcc.png')}></Image>
 
-          <View style={styles.formContainer}>
+          <KeyboardAvoidingView style={styles.formContainer} behavior='padding' enabled>
             <Text style={styles.text}>Activity Tracker!</Text>
             <TextInput
             style={styles.textInput}
@@ -39,7 +45,7 @@ export class Registration extends React.Component {
             value={this.newUser.fccCode}
             />
             <FccButton buttonText={'Sign Up'} />
-          </View>
+          </KeyboardAvoidingView>
 
         </View>
 
