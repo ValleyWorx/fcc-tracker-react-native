@@ -5,7 +5,8 @@ import { StyleSheet,
          TextInput,
          Image,
          TouchableOpacity,
-         KeyboardAvoidingView } from 'react-native';
+         KeyboardAvoidingView,
+         Platform } from 'react-native';
 import { Header }  from '../../components/header';
 import FccButton from '../../components/fcc-button';
 
@@ -17,6 +18,7 @@ export class Registration extends React.Component {
       password: 'Password',
       fccCode: 'FCC Code'
      };
+    this.vOffset = Platform.OS === 'ios' ? 100 : 10; //Size of vertical offset
   }
 
   render() {
@@ -27,10 +29,12 @@ export class Registration extends React.Component {
         <View style={styles.backgroundContainer}>
           <Image style={styles.backgroundImage} source={require('./../../../assets/img/fcc.png')}></Image>
 
+          // Could wrap in scroll View
+
           <KeyboardAvoidingView
             style={styles.formContainer}
             behavior='padding'
-            keyboardVerticalOffset={40}
+            keyboardVerticalOffset={this.vOffset} //Gets computed when changes props or state
             enabled
             >
             <Text style={styles.text}>Activity Tracker!</Text>
