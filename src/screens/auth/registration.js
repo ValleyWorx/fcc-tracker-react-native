@@ -27,7 +27,12 @@ export class Registration extends React.Component {
         <View style={styles.backgroundContainer}>
           <Image style={styles.backgroundImage} source={require('./../../../assets/img/fcc.png')}></Image>
 
-          <KeyboardAvoidingView style={styles.formContainer} behavior='padding' enabled>
+          <KeyboardAvoidingView
+            style={styles.formContainer}
+            behavior='padding'
+            keyboardVerticalOffset={40}
+            enabled
+            >
             <Text style={styles.text}>Activity Tracker!</Text>
             <TextInput
             style={styles.textInput}
