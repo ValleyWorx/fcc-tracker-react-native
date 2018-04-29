@@ -1,22 +1,85 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import { Registration } from './src/screens/auth/registration';
+import { Provider, connect } from 'react-redux';
+import { StackNavigator, addNavigationHelpers } from 'react-navigation';
+import {
+  createReduxBoundAddListener,
+  createReactNavigationReduxMiddleware,
+} from 'react-navigation-redux-helpers';
+import { Routes } from './src/nav/Router';
+import getStore from './src/state/Store';
 
-export default class App extends React.Component {
+import { BackHandler } from 'react-native';
+
+const AppNavigator = StackNavigator(Routes, {
+  initialRouteName: 'LoginScreen',
+  headerMode: 'screen',
+  mode: 'card',
+  navigationOptions: {
+    gesturesEnabled: false,
+  }
+})
+
+const navReducer = (state, action) => {
+  const newState = AppNavigator.router.getStateForAction(action, state);
+  return newState || state;
+}
+
+// Note: createReactNavigationReduxMiddleware must be run before createReduxBoundAddListener
+const middleware = createReactNavigationReduxMiddleware(
+  "root",
+  state => state.nav,
+);
+const addListener = createReduxBoundAddListener("root");
+
+@connect(state => ({
+  nav: state.nav
+}))
+class AppWithNavigationState extends React.Component {
+  handleBackPress = () => {
+    const { dispatch, nav } = this.props;
+    const navigation = addNavigationHelpers({
+      dispatch,
+      state: nav,
+    })
+    navigation.goBack();
+    return true;
+  }
+
+  componentWillMount() {
+
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('backPress', this.handleBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('backPress', this.handleBackPress);
+  }
+  
   render() {
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#006400'}}>
-      <View style={styles.container}>
-        <Registration></Registration>
-      </View>
-      </SafeAreaView>
-    );
+      <AppNavigator
+        navigation={addNavigationHelpers({
+          dispatch: this.props.dispatch,
+          state: this.props.nav,
+          addListener,
+        })}
+      />
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-});
+const store = getStore(navReducer);
+
+class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <AppWithNavigationState />
+      </Provider>
+    )
+  }
+}
+
+export default App;

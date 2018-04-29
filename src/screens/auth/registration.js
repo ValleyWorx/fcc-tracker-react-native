@@ -10,7 +10,7 @@ import { StyleSheet,
 import { Header }  from '../../components/header';
 import FccButton from '../../components/fcc-button';
 
-export class Registration extends React.Component {
+export default class Registration extends React.Component {
   constructor(props) {
     super(props);
     this.newUser = {
