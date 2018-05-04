@@ -1,78 +1,109 @@
-import React from 'react';
-import { connect } from 'react-redux';
-
-import Registration from './auth/registration';
-
+import React from "react";
 import {
-    View,
-    Text,
-    StyleSheet,
-    TextInput,
-    KeyboardAvoidingView,
-    ActivityIndicator
-} from 'react-native';
-import { Button } from '../components/common';
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform
+} from "react-native";
+import Header from "../components/Header";
+import FccButton from "../components/fcc-button";
+import * as STYLES from '../styles';
 
-class LoginScreen extends React.Component {
-    state = {
-        email: '',
-        password: '',
-    }
+export default class Registration extends React.Component {
+  constructor(props) {
+    super(props);
+    this.newUser = {
+      email: "Email",
+      password: "Password",
+      fccCode: "FCC Code"
+    };
+    this.vOffset = Platform.OS === "ios" ? 100 : 10; //Size of vertical offset
+  }
+	
+	onLoginPress = () => {
+		this.props.navigation.navigate('Tabs');
+	}
 
-    handleLoginPress() {
+  render() {
+    return (
+      <View style={styles.container}>
+			<Header
+				centerType={'logo'}
+			/>
 
-    }
-
-    render() {
-        return (
-            <Registration>
-
-            </Registration>
-        )
-    }
+        <View style={styles.backgroundContainer}>
+          <Image
+            style={styles.backgroundImage}
+            source={require("../../assets/img/fcc.png")}
+          />
+          {/* Could wrap in scroll View */}
+          <KeyboardAvoidingView
+            style={styles.formContainer}
+            behavior="padding"
+            keyboardVerticalOffset={this.vOffset} // Gets computed when changes props or state
+            enabled
+          >
+            <Text style={styles.text}>Activity Tracker!</Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => this.setState({ text })}
+              value={this.newUser.email}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => this.setState({ text })}
+              value={this.newUser.password}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => this.setState({ text })}
+              value={this.newUser.fccCode}
+            />
+            <FccButton buttonText={"Sign Up"} onPress={this.onLoginPress} />
+          </KeyboardAvoidingView>
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    containerStyle: {
-        paddingTop: 22,
-        backgroundColor: '#fff',
-        flex: 1,
-    },
-    contentContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: "3%"
-    },
-    titleText: {
-        fontSize: 36,
-        fontWeight: 'bold',
-    },
-    textInputTitle: {
-        fontSize: 18,
-        marginVertical: 5,
-        fontWeight: '400',
-        alignSelf: 'flex-start',
-    },
-    textInputStyle: {
-        height: 38,
-        width: '100%',
-        borderColor: "#ccc",
-        borderWidth: 1,
-        borderRadius: 4,
-        marginVertical: 5,
-        padding: 5,
-    },
-    errorMsg: {
-        color: '#a00',
-        fontSize: 18,
-    }
-})
-
-const mapStateToProps = state => {
-    const { loading, errorMsg } = state.auth;
-
-    return { loading, errorMsg };
-}
-
-export default connect(mapStateToProps)(LoginScreen);
+  container: STYLES.CONTAINER_STYLE,
+  backgroundContainer: {
+    flex: 1
+  },
+  formContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  textInput: {
+    height: 40,
+    width: 200,
+    marginVertical: 5,
+    borderColor: "gray",
+    borderWidth: 1,
+    backgroundColor: "#fff",
+    borderColor: "#006400",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingLeft: 5
+  },
+  text: {
+    marginBottom: 50,
+    fontWeight: "bold",
+    fontSize: 33,
+    color: "#006400"
+  },
+  backgroundImage: {
+    flex: 1,
+    position: "absolute",
+    resizeMode: "cover",
+    width: "100%",
+    height: "100%"
+  }
+});

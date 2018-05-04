@@ -7,12 +7,8 @@ import { LinearGradient } from 'expo';
 const FccButton = (props) => {
     const { signUpButton, linearGradient } = styles;
 
-    onPress = () => {
-      Alert.alert('Button Clicked!');
-    }
-
     return (
-      <TouchableOpacity style={signUpButton} onPress={this.onPress}>
+      <TouchableOpacity style={signUpButton} onPress={props.onPress}>
         <LinearGradient colors={['#ffcc4d', '#ec8b11']} style={linearGradient}>
           <Text>
             {props.buttonText}

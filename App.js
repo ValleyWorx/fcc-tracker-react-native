@@ -1,13 +1,13 @@
 import React from 'react';
 import { Provider, connect } from 'react-redux';
-import { StackNavigator, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, addNavigationHelpers, SafeAreaView } from 'react-navigation';
 import {
   createReduxBoundAddListener,
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 import { Routes } from './src/nav/Router';
 import getStore from './src/state/Store';
-
+import * as STYLES from './src/styles';
 import { BackHandler } from 'react-native';
 
 const AppNavigator = StackNavigator(Routes, {
@@ -76,7 +76,9 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppWithNavigationState />
+        <SafeAreaView style={{ flex: 1, backgroundColor: STYLES.MAIN_COLOR }}>
+          <AppWithNavigationState />
+        </SafeAreaView>
       </Provider>
     )
   }
