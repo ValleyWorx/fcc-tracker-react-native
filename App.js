@@ -75,11 +75,13 @@ const store = getStore(navReducer);
 class App extends React.Component {
   render() {
     return (
+      <SafeAreaView style={{flex:1}}>
       <Provider store={store}>
         <SafeAreaView style={{ flex: 1, backgroundColor: STYLES.MAIN_COLOR }}>
           <AppWithNavigationState />
         </SafeAreaView>
       </Provider>
+      </SafeAreaView>
     )
   }
 }
