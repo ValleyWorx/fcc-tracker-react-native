@@ -58,7 +58,12 @@ export default class Registration extends React.Component {
               onChangeText={text => this.setState({ text })}
               value={this.newUser.password}
             />
-            <FccButton buttonText={"Log In"} onPress={this.onLoginPress} />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => this.setState({ text })}
+              value={this.newUser.fccCode}
+            />
+            <FccButton buttonText={"Sign Up"} onPress={this.onLoginPress} />
           </KeyboardAvoidingView>
         </View>
       </View>

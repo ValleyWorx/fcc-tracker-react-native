@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Header from '../components/Header';
+import Header from '../components/header';
 import * as STYLES from '../styles';
 
 class HomeScreen extends React.Component {
