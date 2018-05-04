@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider, connect } from 'react-redux';
-import { StackNavigator, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, SafeAreaView, addNavigationHelpers } from 'react-navigation';
 import {
   createReduxBoundAddListener,
   createReactNavigationReduxMiddleware,
@@ -75,9 +75,11 @@ const store = getStore(navReducer);
 class App extends React.Component {
   render() {
     return (
+      <SafeAreaView style={{flex:1}}>
       <Provider store={store}>
         <AppWithNavigationState />
       </Provider>
+      </SafeAreaView>
     )
   }
 }
