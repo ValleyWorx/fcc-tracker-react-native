@@ -14,13 +14,17 @@ import FccButton from "../components/fcc-button";
 import * as STYLES from '../styles';
 
 export default class Registration extends React.Component {
+  state = {
+    email: "",
+    password: "",
+  }
+  newUser = {
+    email: "Email",
+    password: "Password"
+  };
   constructor(props) {
     super(props);
-    this.newUser = {
-      email: "Email",
-      password: "Password",
-      fccCode: "FCC Code"
-    };
+    
     this.vOffset = Platform.OS === "ios" ? 100 : 10; //Size of vertical offset
   }
 	
@@ -50,13 +54,15 @@ export default class Registration extends React.Component {
             <Text style={styles.text}>Activity Tracker!</Text>
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.setState({ text })}
-              value={this.newUser.email}
+              onChangeText={text => this.setState({ email: text })}
+              placeholder={this.newUser.email}
+              value = {this.state.email}
             />
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.setState({ text })}
-              value={this.newUser.password}
+              onChangeText={text => this.setState({ password: text })}
+              placeholder={this.newUser.password}
+              value = {this.state.password}
             />
             <FccButton buttonText={"Log In"} onPress={this.onLoginPress} />
           </KeyboardAvoidingView>
