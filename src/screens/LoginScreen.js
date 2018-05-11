@@ -33,15 +33,14 @@ export default class Registration extends React.Component {
     }
 
     onLoginPress = async () => {
-        const response = await api(
-            'auth',
-            'POST', 
-            {
+        const response = await api({
+            endpoint: 'auth',
+            method: 'POST', 
+            body: {
                 email: this.state.email,
                 password: this.state.password,
             }
-        );
-
+        });
 
         this.props.dispatch(logInSuccess(response));
         

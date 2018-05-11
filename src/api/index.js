@@ -1,7 +1,7 @@
 const apiURL = 'https://fcctrackerapi.herokuapp.com/';     //change url to AWS
 
-export const api = async (endpoint, method, body) => {
-
+export const api = async ({endpoint, method, body}) => {
+}
     const response = await fetch(apiURL + endpoint, {
         method,
         headers: {

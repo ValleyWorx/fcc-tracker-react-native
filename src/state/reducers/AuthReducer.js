@@ -8,7 +8,8 @@ const initialState = {
     jwt: '',
     fname: '',
     lname: '',
-    refreshToken: ''
+    refreshToken: '',
+    errorMsg: ''
 }
 
 export default (state = initialState, action) => {
