@@ -12,6 +12,7 @@ import {
 import Header from "../components/header";
 import FccButton from "../components/fcc-button";
 import * as STYLES from '../styles';
+import { api } from "../api";
 
 export default class Registration extends React.Component {
     state = {
@@ -29,21 +30,18 @@ export default class Registration extends React.Component {
     }
 
     onLoginPress = async () => {
-        // this.props.navigation.navigate('Tabs');
-        const response = await fetch('https://fcctrackerapi.herokuapp.com/auth', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        const response = await api(
+            'auth',
+            'POST', 
+            {
                 email: this.state.email,
                 password: this.state.password,
-            }),
-        });
+            }
+        );
 
-        const {jwt, fname, lname, refreshToken, role} = response.json();
+        const {jwt, fname, lname, refreshToken, role} = response;
         this.setState({jwt});
+        // this.props.navigation.navigate('Tabs');
     }
 
     render() {
@@ -77,6 +75,7 @@ export default class Registration extends React.Component {
                             onChangeText={text => this.setState({ password: text })}
                             placeholder={this.newUser.password}
                             value={this.state.password}
+                            secureTextEntry={true}
                         />
                         <FccButton buttonText={"Log In"} onPress={this.onLoginPress} />
                         <Text>{this.state.jwt}</Text>
