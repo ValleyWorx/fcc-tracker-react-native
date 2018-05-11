@@ -6,3 +6,14 @@ import {
     LOG_IN_SUCCESS,
     LOG_OUT
 } from './types';
+
+export function logInSuccess ({jwt, fname, lname, refreshToken, role}) {
+    return {
+        type: LOG_IN_SUCCESS,
+        jwt,
+        fname,
+        lname,
+        refreshToken,
+        role
+    }
+};

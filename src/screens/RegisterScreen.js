@@ -57,6 +57,7 @@ export default class Registration extends React.Component {
               style={styles.textInput}
               onChangeText={text => this.setState({ text })}
               value={this.newUser.password}
+              secureTextEntry={true}
             />
             <TextInput
               style={styles.textInput}

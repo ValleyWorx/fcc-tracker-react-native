@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import {
     StyleSheet,
     Text,
@@ -13,7 +14,9 @@ import Header from "../components/header";
 import FccButton from "../components/fcc-button";
 import * as STYLES from '../styles';
 import { api } from "../api";
+import { logInSuccess } from "../actions/AuthActions";
 
+@connect() 
 export default class Registration extends React.Component {
     state = {
         email: "",
@@ -39,9 +42,10 @@ export default class Registration extends React.Component {
             }
         );
 
-        const {jwt, fname, lname, refreshToken, role} = response;
-        this.setState({jwt});
-        // this.props.navigation.navigate('Tabs');
+
+        this.props.dispatch(logInSuccess(response));
+        
+        this.props.navigation.navigate('Tabs');
     }
 
     render() {
