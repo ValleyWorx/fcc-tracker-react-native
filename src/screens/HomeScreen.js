@@ -3,21 +3,19 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import Header from '../components/header';
 import * as STYLES from '../styles';
-
-const mapStateToProps = ({ auth }, props) => (
-    { fname: auth.fname }
-);
-
-@connect(mapStateToProps)
+import {scrape} from '../actions';
 
 class HomeScreen extends React.Component {
+    componentDidMount() {
+        this.props.scrape();
+    }
     render() {
         return (
             <View style={styles.containerStyle}>
                 <Header
                     centerType={'text'}
                     centerText={'Home'}
-                />
+                    />
                 <Text>This is the home screen!</Text>
                 <Text>
                 {
@@ -33,4 +31,9 @@ const styles = StyleSheet.create({
     containerStyle: STYLES.CONTAINER_STYLE
 })
 
-export default HomeScreen;
+const mapStateToProps = state => {
+    const {user} = state.auth;
+    return {user};
+}
+
+export default connect(mapStateToProps, {scrape})(HomeScreen);

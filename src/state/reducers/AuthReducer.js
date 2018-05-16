@@ -1,25 +1,23 @@
 import {
-    ATTEMPT_LOG_IN,
+    AUTH_LOADING,
     LOG_IN_FAIL,
-    LOG_IN_SUCCESS
+    LOG_IN_SUCCESS,
 } from '../../actions/types';
 
 const initialState = {
-    jwt: '',
-    fname: '',
-    lname: '',
-    refreshToken: '',
-    errorMsg: ''
+    errorMsg: '',
+    user: {},
+    loading: false,
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case ATTEMPT_LOG_IN:
-            return { ...state, loading: true }
+        case AUTH_LOADING:
+            return { ...state, loading: action.payload }
         case LOG_IN_SUCCESS:
-            return { ...state, jwt: action.jwt, fname: action.fname, lname: action.lname, refreshToken: action.refreshToken}
+            return { ...state, user: action.payload }
         case LOG_IN_FAIL:
-            return { ...state, ...initialState, errorMsg: 'Login failed, please try again.' }
+            return { ...state, errorMsg: 'Login failed, please try again.' }
         default:
             return state;
     }

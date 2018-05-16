@@ -45,10 +45,6 @@ class AppWithNavigationState extends React.Component {
     return true;
   }
 
-  componentWillMount() {
-
-  }
-
   componentDidMount() {
     BackHandler.addEventListener('backPress', this.handleBackPress);
   }

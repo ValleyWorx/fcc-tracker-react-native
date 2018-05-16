@@ -8,24 +8,20 @@ import {
     Image,
     TouchableOpacity,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    AsyncStorage
 } from "react-native";
 import Header from "../components/header";
 import FccButton from "../components/fcc-button";
+import { FCCSpinner } from "../components/FCCSpinner";
 import * as STYLES from '../styles';
-import { api } from "../api";
-import { logInSuccess } from "../actions/AuthActions";
+import { logIn } from "../actions";
 
-@connect() 
-export default class Registration extends React.Component {
+class Registration extends React.Component {
     state = {
         email: "",
         password: "",
     }
-    newUser = {
-        email: "Email",
-        password: "Password"
-    };
     constructor(props) {
         super(props);
 
@@ -33,18 +29,28 @@ export default class Registration extends React.Component {
     }
 
     onLoginPress = async () => {
-        const response = await api({
-            endpoint: 'auth',
-            method: 'POST', 
-            body: {
-                email: this.state.email,
-                password: this.state.password,
-            }
-        });
+        const loginObject = {
+            email: this.state.email,
+            password: this.state.password,
+        }
+        this.props.logIn(loginObject, this.props.navigation);
+    }
 
-        this.props.dispatch(logInSuccess(response));
-        
-        this.props.navigation.navigate('Tabs');
+    renderButton() {
+        if (this.props.loading) {
+            return (<FCCSpinner />);
+        }
+        return (
+            <FccButton buttonText={"Log In"} onPress={this.onLoginPress} />
+        )
+    }
+
+    renderError = () => {
+        if (this.props.errorMsg) {
+            return (
+                <Text style={styles.errorMsg}>{this.props.errorMsg}</Text>
+            )
+        }
     }
 
     render() {
@@ -70,17 +76,23 @@ export default class Registration extends React.Component {
                         <TextInput
                             style={styles.textInput}
                             onChangeText={text => this.setState({ email: text })}
-                            placeholder={this.newUser.email}
+                            placeholder={"Email"}
                             value={this.state.email}
                         />
                         <TextInput
                             style={styles.textInput}
                             onChangeText={text => this.setState({ password: text })}
-                            placeholder={this.newUser.password}
+                            placeholder={"Password"}
                             value={this.state.password}
                             secureTextEntry={true}
+                            onSubmitEditing={this.onLoginPress}
                         />
-                        <FccButton buttonText={"Log In"} onPress={this.onLoginPress} />
+                        <View style={styles.errorContainer}>
+                            {this.renderError()}
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            {this.renderButton()}
+                        </View>
                         <Text>{this.state.jwt}</Text>
                     </KeyboardAvoidingView>
                 </View>
@@ -123,5 +135,25 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         width: "100%",
         height: "100%"
+    },
+    errorMsg: {
+        color: '#a00',
+    },
+    buttonContainer: {
+        height: 60,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    errorContainer: {
+        height: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
+
+const mapStateToProps = state => {
+    const {user, loading, errorMsg} = state.auth;
+    return {user, loading, errorMsg};
+}
+
+export default connect(mapStateToProps, {logIn})(Registration);

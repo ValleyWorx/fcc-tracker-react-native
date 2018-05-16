@@ -1,15 +1,22 @@
-const apiURL = 'https://fcctrackerapi.herokuapp.com/';     //change url to AWS
+import {checkTokens} from '../actions/Helpers';
 
-export const api = async ({endpoint, method, body}) => {
-}
-    const response = await fetch(apiURL + endpoint, {
-        method,
-        headers: {
+export const apiURL = 'https://api.fcctracker.com/';     //change url to AWS
+
+export const api = ({endpoint, method, body}) => {
+    return checkTokens().then(async jwt => {
+        const headers = {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body)
-    });
+        };
+        if (jwt) {
+            headers['Authorization'] = `Bearer ${jwt}`;
+        }
+        const response = await fetch(apiURL + endpoint, {
+            method,
+            headers: headers,
+            body: JSON.stringify(body)
+        });
+        return response;
+    })
 
-    return response.json();
 };
