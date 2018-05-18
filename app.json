@@ -10,7 +10,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/img/fcc-ani-campfire.gif",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

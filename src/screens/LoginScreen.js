@@ -11,7 +11,7 @@ import {
     Platform,
     AsyncStorage
 } from "react-native";
-import Header from "../components/header";
+import Header from "../components/Header";
 import FccButton from "../components/fcc-button";
 import { FCCSpinner } from "../components/FCCSpinner";
 import * as STYLES from '../styles';
@@ -59,7 +59,6 @@ class Registration extends React.Component {
                 <Header
                     centerType={'logo'}
                 />
-
                 <View style={styles.backgroundContainer}>
                     <Image
                         style={styles.backgroundImage}
@@ -93,7 +92,6 @@ class Registration extends React.Component {
                         <View style={styles.buttonContainer}>
                             {this.renderButton()}
                         </View>
-                        
                     </KeyboardAvoidingView>
                 </View>
             </View>

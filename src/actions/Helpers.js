@@ -1,6 +1,7 @@
 import {AsyncStorage} from 'react-native';
 var jwtDecode = require('jwt-decode');
-import {api, apiURL} from '../api';
+import { api, apiURL } from '../api';
+import { NavigationActions } from 'react-navigation';
 
 // Helper function to verify and/or refresh JWT
 export const checkTokens = () => {
@@ -46,4 +47,15 @@ export const checkTokens = () => {
 				resolve(null);
 			}
 	})
+}
+
+export const resetNavigation = (navigation, route) => {
+	const resetAction = NavigationActions.reset({
+		index: 0,
+		key: null,
+		actions: [
+			NavigationActions.navigate({ routeName: route })
+		]
+	});
+	navigation.dispatch(resetAction);
 }

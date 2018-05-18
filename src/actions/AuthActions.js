@@ -7,7 +7,8 @@ import {
 } from './types';
 import { api } from '../api';
 import { NavigationActions } from 'react-navigation';
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
+import { resetNavigation } from './Helpers';
 
 export const logIn = (loginObject, navigation) => {
     return async (dispatch) => {
@@ -23,18 +24,27 @@ export const logIn = (loginObject, navigation) => {
                     password: password,
                 }
             });
+            console.log('response', response);
             const {jwt, refreshToken} = response;
             await AsyncStorage.setItem('jwt', jwt);
             await AsyncStorage.setItem('refreshToken', refreshToken);
-            dispatch({type: LOG_IN_SUCCESS, payload: response});
-            dispatch({type: AUTH_LOADING, payload: false});
-            navigation.navigate('HomeScreen');
-        } catch(e) {
+            dispatch({ type: LOG_IN_SUCCESS, payload: response });
+            dispatch({ type: AUTH_LOADING, payload: false });
+            resetNavigation(navigation, 'Tabs');
+        } catch (e) {
+            console.log('error', e);
             dispatch({type: LOG_IN_FAIL});
             dispatch({type: AUTH_LOADING, payload: false});
         }
     }
 };
+
+export const logOut = (navigation) => {
+    return async (dispatch) => {
+        await AsyncStorage.clear();
+        resetNavigation(navigation, 'LoginScreen');
+    }
+}
 
 export const scrape = () => {
     return async (dispatch) => {

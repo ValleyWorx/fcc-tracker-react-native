@@ -11,7 +11,7 @@ import * as STYLES from './src/styles';
 import { BackHandler } from 'react-native';
 
 const AppNavigator = StackNavigator(Routes, {
-  initialRouteName: 'LoginScreen',
+  initialRouteName: 'LoadingScreen',
   headerMode: 'screen',
   mode: 'card',
   navigationOptions: {
