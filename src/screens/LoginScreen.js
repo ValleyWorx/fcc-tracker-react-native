@@ -93,7 +93,7 @@ class Registration extends React.Component {
                         <View style={styles.buttonContainer}>
                             {this.renderButton()}
                         </View>
-                        <Text>{this.state.jwt}</Text>
+                        
                     </KeyboardAvoidingView>
                 </View>
             </View>
