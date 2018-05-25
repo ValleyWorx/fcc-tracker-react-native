@@ -45,13 +45,3 @@ export const logOut = (navigation) => {
         resetNavigation(navigation, 'LoginScreen');
     }
 }
-
-export const scrape = () => {
-    return async (dispatch) => {
-        const response = await api({
-            endpoint: 'user/scrape',
-            method: 'GET',
-        });
-        console.log('scrape results: ', response);
-    }
-}

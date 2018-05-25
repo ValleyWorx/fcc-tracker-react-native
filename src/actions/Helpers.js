@@ -5,7 +5,7 @@ import { NavigationActions } from 'react-navigation';
 
 // Helper function to verify and/or refresh JWT
 export const checkTokens = () => {
-	return new Promise(async (resolve) => {
+	return new Promise(async (resolve, reject) => {
 			// Pull jwt and refresh token out of AsyncStorage
 			let jwt = await AsyncStorage.getItem('jwt');
 			let refreshToken = await AsyncStorage.getItem('refreshToken');
@@ -21,30 +21,33 @@ export const checkTokens = () => {
 						console.log('jwt still good');
 						resolve(jwt);
 				} else {
-						// JWT needs to be refreshed, fetch to endpoint for new JWT
-						let request = fetch(
-								apiURL + 'auth',
-								{
-										method: 'POST',
-										body: JSON.stringify({
-												"refreshToken": refreshToken,
-										})
-								}
-						).then(resp => {
-							console.log('resp', resp);
-								if (resp.ok) {
-										resp.json().then(async respJson => {
-												// Store the JWT and refresh token in AsyncStorage
-												await AsyncStorage.setItem('jwt', respJson.jwt);
-												await AsyncStorage.setItem('refreshToken', respJson.refreshToken);
-												// Resolve promise with new JWT
-												resolve(jwt);
-										})
-								}
-						})
+						try {
+								// JWT needs to be refreshed, fetch to endpoint for new JWT
+								let resp = await fetch(
+									apiURL + 'auth',
+									{
+											method: 'POST',
+											body: JSON.stringify({
+													"refreshToken": refreshToken,
+											})
+									}
+								);
+							if (resp.ok) {
+									const respJson = await resp.json();
+									// Store the JWT and refresh token in AsyncStorage
+									await AsyncStorage.setItem('jwt', respJson.jwt);
+									await AsyncStorage.setItem('refreshToken', respJson.refreshToken);
+									// Resolve promise with new JWT
+									resolve(jwt);
+							} else {
+								throw new Error();
+							}
+						} catch(e) {
+							reject(`Refresh Token failed: ${e}`);
+						}
 				}
 			} else {
-				resolve(null);
+				reject("JWT missing...");
 			}
 	})
 }

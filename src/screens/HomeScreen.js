@@ -10,6 +10,8 @@ class HomeScreen extends React.Component {
         this.props.scrape();
     }
     render() {
+        const { challenges, algorithms, projects } = this.props.fccUserStats;
+
         return (
             <View style={styles.containerStyle}>
                 <Header
@@ -18,9 +20,13 @@ class HomeScreen extends React.Component {
                     />
                 <Text>This is the home screen!</Text>
                 <Text>
-                {
-                    this.props.fname
-                }
+                    { `${challenges.type}  Total: ${challenges.total}  Done: ${challenges.done}` }
+                </Text>
+                <Text>
+                    { `${algorithms.type}  Total: ${algorithms.total}  Done: ${algorithms.done}` }
+                </Text>
+                <Text>
+                    { `${projects.type}  Total: ${projects.total}  Done: ${projects.done}` } 
                 </Text>
             </View>
         )
@@ -31,9 +37,10 @@ const styles = StyleSheet.create({
     containerStyle: STYLES.CONTAINER_STYLE
 })
 
-const mapStateToProps = state => {
-    const {user} = state.auth;
-    return {user};
+const mapStateToProps = ({ auth, scrape }) => {
+    const {user} = auth;
+    const {fccUserStats} = scrape;
+    return {user, fccUserStats};
 }
 
 export default connect(mapStateToProps, {scrape})(HomeScreen);
