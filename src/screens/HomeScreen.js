@@ -4,10 +4,18 @@ import { View, Text, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import * as STYLES from '../styles';
 import {scrape} from '../actions';
+import SkyScraper from '../../assets/animations/skyscraper';
+import { DangerZone } from 'expo';
+let { Lottie } = DangerZone;
 
 class HomeScreen extends React.Component {
+    state = {
+        animation: null,
+    };
+
     componentDidMount() {
         this.props.scrape();
+        this.animation.play();
     }
     render() {
         const { challenges, algorithms, projects } = this.props.fccUserStats;
@@ -18,6 +26,18 @@ class HomeScreen extends React.Component {
                     centerType={'text'}
                     centerText={'Home'}
                     />
+                    <Lottie
+                        ref={animation => {
+                            if(animation) {
+                                this.animation = animation;
+                            }
+                        }}
+                        style={styles.aniStyle}
+                        speed={10}
+                        loop={false}
+                        source={SkyScraper}
+                    />
+
                 <Text>This is the home screen!</Text>
                 <Text>
                     { `${challenges.type}  Total: ${challenges.total}  Done: ${challenges.done}` }
@@ -34,7 +54,16 @@ class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    containerStyle: STYLES.CONTAINER_STYLE
+    containerStyle: STYLES.CONTAINER_STYLE,
+    aniStyle: {
+        flex: 1,
+        marginTop: 0,
+        position: 'relative',
+        width: 150,
+        top: -30,
+        left: 64,
+        justifyContent: 'center'
+    }
 })
 
 const mapStateToProps = ({ auth, scrape }) => {
