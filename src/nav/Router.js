@@ -4,6 +4,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import * as STYLES from '../styles';
 
+import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -57,6 +58,14 @@ const Tabs = TabNavigator({
 })
 
 export const Routes = {
+    LoadingScreen: {
+        screen: LoadingScreen,
+        mode: 'card',
+        navigationOptions: {
+            gesturesEnabled: false,
+            header: null,
+        }
+    },
     LoginScreen: {
         screen: LoginScreen,
         mode: 'card',

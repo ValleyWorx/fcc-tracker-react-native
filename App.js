@@ -9,9 +9,10 @@ import { Routes } from './src/nav/Router';
 import getStore from './src/state/Store';
 import * as STYLES from './src/styles';
 import { BackHandler } from 'react-native';
+import { setupApiNavigation } from './src/api';
 
 const AppNavigator = StackNavigator(Routes, {
-  initialRouteName: 'LoginScreen',
+  initialRouteName: 'LoadingScreen',
   headerMode: 'screen',
   mode: 'card',
   navigationOptions: {
@@ -46,6 +47,7 @@ class AppWithNavigationState extends React.Component {
   }
 
   componentDidMount() {
+    setupApiNavigation(this.props.dispatch);
     BackHandler.addEventListener('backPress', this.handleBackPress);
   }
 

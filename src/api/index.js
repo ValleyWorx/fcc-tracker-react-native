@@ -1,6 +1,8 @@
-import {checkTokens} from '../actions/Helpers';
+import { checkTokens, resetNavigation } from '../actions/Helpers';
 
-export const apiURL = 'https://api.fcctracker.com/';     //change url to AWS
+let dipatch = () => {};
+
+export const apiURL = 'https://api.fcctracker.com/';
 
 export const api = async ({endpoint, method, skipAuth, body}) => {
     const headers = {
@@ -9,9 +11,14 @@ export const api = async ({endpoint, method, skipAuth, body}) => {
     };
     
     if (!skipAuth) {
-        const jwt = await checkTokens();
-        if (jwt) {
-            headers['Authorization'] = `Bearer ${jwt}`;
+        try {
+            const jwt = await checkTokens();
+            if (jwt) {
+                headers['Authorization'] = `Bearer ${jwt}`;
+            }
+        } catch(e) {
+            resetNavigation({ dispatch }, 'LoginScreen');
+            return;
         }
     }
 
@@ -26,3 +33,7 @@ export const api = async ({endpoint, method, skipAuth, body}) => {
         throw new Error('Api Error');
     }
 };
+
+export const setupApiNavigation = (dispatchTmp) => {
+    dispatch = dispatchTmp;
+}
