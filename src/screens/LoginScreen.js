@@ -11,7 +11,7 @@ import {
     Platform,
     AsyncStorage
 } from "react-native";
-import Header from "../components/Header";
+import Header from "../components/header";
 import FccButton from "../components/fcc-button";
 import { FCCSpinner } from "../components/FCCSpinner";
 import * as STYLES from '../styles';
