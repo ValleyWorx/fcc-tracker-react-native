@@ -1,21 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    Image
+} from 'react-native';
 import Header from '../components/Header';
 import * as STYLES from '../styles';
 import {scrape} from '../actions';
-import SkyScraper from '../../assets/animations/skyscraper';
-import { DangerZone } from 'expo';
-let { Lottie } = DangerZone;
+import { Tower } from '../components/Tower';
 
 class HomeScreen extends React.Component {
-    state = {
-        animation: null,
-    };
 
     componentDidMount() {
         this.props.scrape();
-        this.animation.play();
     }
     render() {
         const { challenges, algorithms, projects } = this.props.fccUserStats;
@@ -26,19 +26,28 @@ class HomeScreen extends React.Component {
                     centerType={'text'}
                     centerText={'Home'}
                     />
-                    <Lottie
-                        ref={animation => {
-                            if(animation) {
-                                this.animation = animation;
-                            }
-                        }}
-                        style={styles.aniStyle}
-                        speed={10}
-                        loop={false}
-                        source={SkyScraper}
-                    />
 
-                <Text>This is the home screen!</Text>
+                <ScrollView
+                    horizontal={true}
+                    snapToAlignment={'center'}
+                    snapToInterval={150}
+                    decelerationRate={'fast'}
+                >
+                    <Image
+                      style={styles.bgStyle} 
+                      source={require('../../assets/img/skyline.jpg')}
+                    />
+                    <Tower progress={.25} title={'Tower 1'}/>
+                    <Tower progress={0.5} title={'Tower 2'}/>
+                    <Tower progress={.75} title={'Tower 3'}/>
+                    <Tower progress={1} title={'Tower 4'}/>
+                    <Tower progress={0.40} title={'Tower 5'}/>
+                    <Tower progress={0.5}  title={'Tower 6'}/>
+                    <Tower progress={1} title={'Tower 7'}/>
+                    <Tower progress={0.5} title={'Tower 8'}/>
+                </ScrollView>
+
+                {/* <Text>This is the home screen!</Text>
                 <Text>
                     { `${challenges.type}  Total: ${challenges.total}  Done: ${challenges.done}` }
                 </Text>
@@ -47,7 +56,7 @@ class HomeScreen extends React.Component {
                 </Text>
                 <Text>
                     { `${projects.type}  Total: ${projects.total}  Done: ${projects.done}` } 
-                </Text>
+                </Text> */}
             </View>
         )
     }
@@ -63,6 +72,12 @@ const styles = StyleSheet.create({
         top: -30,
         left: 64,
         justifyContent: 'center'
+    },
+    bgStyle: {
+        position: 'absolute',
+        top: -312,
+        left: -150,
+        opacity: 0.3
     }
 })
 
