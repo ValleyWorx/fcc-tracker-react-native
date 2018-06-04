@@ -48,18 +48,35 @@ class HomeScreen extends React.Component {
                 <Header
                     centerType={'text'}
                     centerText={'Home'}
-                />
+                    />
 
-                <Image
-                    style={styles.bgStyle} 
-                    source={require('../../assets/img/skyline.jpg')}
-                />
-                <FlatList
-                    horizontal
-                    data={ campers }
-                    renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
-                />
+                <ScrollView
+                    horizontal={true}
+                    snapToAlignment={'center'}
+                    snapToInterval={150}
+                    decelerationRate={'fast'}
+                >
+                    <Image
+                      style={styles.bgStyle} 
+                      source={require('../../assets/img/skyline.jpg')}
+                    />
+                    <FlatList
+                        horizontal
+                        data={ campers }
+                        renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
+                    />
+                </ScrollView>
 
+                {/*<Text>This is the home screen!</Text>
+                <Text>
+                    { `${challenges.type}  Total: ${challenges.total}  Done: ${challenges.done}` }
+                </Text>
+                <Text>
+                    { `${algorithms.type}  Total: ${algorithms.total}  Done: ${algorithms.done}` }
+                </Text>
+                <Text>
+                    { `${projects.type}  Total: ${projects.total}  Done: ${projects.done}` } 
+                </Text>*/}
             </View>
         )
     }
@@ -77,7 +94,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     bgStyle: {
-        height: 980,
         position: 'absolute',
         top: -312,
         left: -150,
