@@ -5,7 +5,8 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    Image
+    Image,
+    FlatList
 } from 'react-native';
 import Header from '../components/Header';
 import * as STYLES from '../styles';
@@ -17,46 +18,48 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         this.props.scrape();
     }
+
+    // getTowers = (campers) => {
+    //     return campers.map((camper) => {
+    //         const { title, progress } = camper;
+    //         return (
+    //             <Tower title={title} progress={progress} />
+    //         );
+    //     })
+    // }
+
     render() {
         const { challenges, algorithms, projects } = this.props.fccUserStats;
+
+        // TEST DATA
+        const campers = [
+            { key: "Camper 1", progress: 0.25 },
+            { key: "Camper 2", progress: 0.50 },
+            { key: "Camper 3", progress: 0.75 },
+            { key: "Camper 4", progress: 1.00 },
+            { key: "Camper 5", progress: 0.25 },
+            { key: "Camper 6", progress: 0.50 },
+            { key: "Camper 7", progress: 0.75 },
+            { key: "Camper 8", progress: 1.00 },
+        ];
 
         return (
             <View style={styles.containerStyle}>
                 <Header
                     centerType={'text'}
                     centerText={'Home'}
-                    />
+                />
 
-                <ScrollView
-                    horizontal={true}
-                    snapToAlignment={'center'}
-                    snapToInterval={150}
-                    decelerationRate={'fast'}
-                >
-                    <Image
-                      style={styles.bgStyle} 
-                      source={require('../../assets/img/skyline.jpg')}
-                    />
-                    <Tower progress={.25} title={'Tower 1'}/>
-                    <Tower progress={0.5} title={'Tower 2'}/>
-                    <Tower progress={.75} title={'Tower 3'}/>
-                    <Tower progress={1} title={'Tower 4'}/>
-                    <Tower progress={0.40} title={'Tower 5'}/>
-                    <Tower progress={0.5}  title={'Tower 6'}/>
-                    <Tower progress={1} title={'Tower 7'}/>
-                    <Tower progress={0.5} title={'Tower 8'}/>
-                </ScrollView>
+                <Image
+                    style={styles.bgStyle} 
+                    source={require('../../assets/img/skyline.jpg')}
+                />
+                <FlatList
+                    horizontal
+                    data={ campers }
+                    renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
+                />
 
-                {/* <Text>This is the home screen!</Text>
-                <Text>
-                    { `${challenges.type}  Total: ${challenges.total}  Done: ${challenges.done}` }
-                </Text>
-                <Text>
-                    { `${algorithms.type}  Total: ${algorithms.total}  Done: ${algorithms.done}` }
-                </Text>
-                <Text>
-                    { `${projects.type}  Total: ${projects.total}  Done: ${projects.done}` } 
-                </Text> */}
             </View>
         )
     }
@@ -74,6 +77,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     bgStyle: {
+        height: 980,
         position: 'absolute',
         top: -312,
         left: -150,
