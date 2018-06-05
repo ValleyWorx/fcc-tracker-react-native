@@ -14,19 +14,9 @@ import {scrape} from '../actions';
 import { Tower } from '../components/Tower';
 
 class HomeScreen extends React.Component {
-
     componentDidMount() {
         this.props.scrape();
     }
-
-    // getTowers = (campers) => {
-    //     return campers.map((camper) => {
-    //         const { title, progress } = camper;
-    //         return (
-    //             <Tower title={title} progress={progress} />
-    //         );
-    //     })
-    // }
 
     render() {
         const { challenges, algorithms, projects } = this.props.fccUserStats;
@@ -57,8 +47,8 @@ class HomeScreen extends React.Component {
                     decelerationRate={'fast'}
                 >
                     <Image
-                      style={styles.bgStyle} 
-                      source={require('../../assets/img/skyline.jpg')}
+                    style={styles.bgStyle} 
+                    source={require('../../assets/img/skyline.jpg')}
                     />
                     <FlatList
                         horizontal
@@ -66,17 +56,6 @@ class HomeScreen extends React.Component {
                         renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
                     />
                 </ScrollView>
-
-                {/*<Text>This is the home screen!</Text>
-                <Text>
-                    { `${challenges.type}  Total: ${challenges.total}  Done: ${challenges.done}` }
-                </Text>
-                <Text>
-                    { `${algorithms.type}  Total: ${algorithms.total}  Done: ${algorithms.done}` }
-                </Text>
-                <Text>
-                    { `${projects.type}  Total: ${projects.total}  Done: ${projects.done}` } 
-                </Text>*/}
             </View>
         )
     }
