@@ -5,7 +5,7 @@ import {
   StyleSheet
 } from 'react-native';
 import * as STYLES from '../styles';
-import SkyScraper from '../../assets/animations/skyscraper';
+import SkyScraper from '../../assets/animations/skyscraper3';
 import { DangerZone } from 'expo';
 let { Lottie } = DangerZone;
 
