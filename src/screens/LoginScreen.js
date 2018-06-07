@@ -77,6 +77,7 @@ class Registration extends React.Component {
                             onChangeText={text => this.setState({ email: text })}
                             placeholder={"Email"}
                             value={this.state.email}
+                            underlineColorAndroid={'transparent'}
                         />
                         <TextInput
                             style={styles.textInput}
@@ -85,6 +86,7 @@ class Registration extends React.Component {
                             value={this.state.password}
                             secureTextEntry={true}
                             onSubmitEditing={this.onLoginPress}
+                            underlineColorAndroid={'transparent'}
                         />
                         <View style={styles.errorContainer}>
                             {this.renderError()}

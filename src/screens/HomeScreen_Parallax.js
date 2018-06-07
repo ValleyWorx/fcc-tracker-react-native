@@ -48,7 +48,7 @@ class HomeScreen extends React.Component {
 
                 <ScrollView
                     ref={scrollView => { this._bgScrollView = scrollView; }}
-                    scrollEventThrottle={16}
+                    scrollEventThrottle={1}
                     horizontal={true}
                     snapToAlignment={'center'}
                     snapToInterval={150}
@@ -61,12 +61,14 @@ class HomeScreen extends React.Component {
                     />
                 <FlatList
                         style={[styles.flatListStyle, {width: width}]}
-                        scrollEventThrottle={16}
+                        scrollEventThrottle={1}
                         horizontal
                         data={ campers }
                         renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
                         onScroll={e => {
-                            var scrollX = ((e.nativeEvent.contentOffset.x) * -0.7); 
+                              var scrollX = ((e.nativeEvent.contentOffset.x) * -0.7);
+                              console.log('scrollX', scrollX);
+                            //   this._bgScrollView.scrollTo({ x: scrollX }); 
                             this.setState({bgLeft: scrollX - 480});
                         }}
                 />
@@ -78,6 +80,15 @@ class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     containerStyle: STYLES.CONTAINER_STYLE,
+    // aniStyle: {
+    //     flex: 1,
+    //     marginTop: 0,
+    //     position: 'relative',
+    //     width: 150,
+    //     top: -30,
+    //     left: 64,
+    //     justifyContent: 'center'
+    // },
     bgStyle: {
         position: 'absolute',
         top: -350,
@@ -85,6 +96,7 @@ const styles = StyleSheet.create({
         opacity: 0.3
     },
     flatListStyle: {
+        //flex: 1,
         height: '100%',
         position: 'absolute',
         top: -38

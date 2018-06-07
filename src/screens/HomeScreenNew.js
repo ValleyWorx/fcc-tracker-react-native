@@ -6,6 +6,7 @@ import {
     StyleSheet,
     ScrollView,
     Image,
+    Animated,
     FlatList,
     Dimensions
 } from 'react-native';
@@ -39,6 +40,26 @@ class HomeScreen extends React.Component {
         ];
         const {height, width} = Dimensions.get('window');
 
+        const onScroll = Animated.event(
+            [{ nativeEvent: { contentOffset: { x: this.state.bgleft } } }],
+            { useNativeDriver: true }
+
+            // var scrollX = ((e.nativeEvent.contentOffset.x) * -0.7);
+            // this.setState({bgLeft: scrollX - 480});
+      
+        );
+
+        viewTranslate() {
+            return {
+              transform: [{
+                translateY: this.state.bgleft.interpolate({
+                  inputRange: [0,100],
+                  outputRange: [70,0]
+                })
+              }]
+            };
+          }
+
         return (
             <View style={styles.containerStyle}>
                 <Header
@@ -46,8 +67,7 @@ class HomeScreen extends React.Component {
                     centerText={'Home'}
                     />
 
-                <ScrollView
-                    ref={scrollView => { this._bgScrollView = scrollView; }}
+                <Animated.ScrollView
                     scrollEventThrottle={16}
                     horizontal={true}
                     snapToAlignment={'center'}
@@ -56,21 +76,18 @@ class HomeScreen extends React.Component {
                     scrollEnabled={false}
                 >
                     <Image
-                    style={[styles.bgStyle, {left: this.state.bgLeft}]} 
+                    style={[styles.bgStyle, {this.viewTranslate}]} 
                     source={require('../../assets/img/skyline.jpg')}
                     />
-                <FlatList
+                <Animated.FlatList
                         style={[styles.flatListStyle, {width: width}]}
                         scrollEventThrottle={16}
                         horizontal
                         data={ campers }
                         renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
-                        onScroll={e => {
-                            var scrollX = ((e.nativeEvent.contentOffset.x) * -0.7); 
-                            this.setState({bgLeft: scrollX - 480});
-                        }}
+                        onScroll={onScroll}
                 />
-                </ScrollView>
+                </Animated.ScrollView>
             </View>
         )
     }
@@ -78,6 +95,15 @@ class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     containerStyle: STYLES.CONTAINER_STYLE,
+    // aniStyle: {
+    //     flex: 1,
+    //     marginTop: 0,
+    //     position: 'relative',
+    //     width: 150,
+    //     top: -30,
+    //     left: 64,
+    //     justifyContent: 'center'
+    // },
     bgStyle: {
         position: 'absolute',
         top: -350,
@@ -85,6 +111,7 @@ const styles = StyleSheet.create({
         opacity: 0.3
     },
     flatListStyle: {
+        //flex: 1,
         height: '100%',
         position: 'absolute',
         top: -38
