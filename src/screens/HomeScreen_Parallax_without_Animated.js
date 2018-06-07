@@ -6,7 +6,6 @@ import {
     StyleSheet,
     ScrollView,
     Image,
-    Animated,
     FlatList,
     Dimensions
 } from 'react-native';
@@ -40,26 +39,6 @@ class HomeScreen extends React.Component {
         ];
         const {height, width} = Dimensions.get('window');
 
-        const onScroll = Animated.event(
-            [{ nativeEvent: { contentOffset: { x: this.state.bgleft } } }],
-            { useNativeDriver: true }
-
-            // var scrollX = ((e.nativeEvent.contentOffset.x) * -0.7);
-            // this.setState({bgLeft: scrollX - 480});
-      
-        );
-
-        viewTranslate() {
-            return {
-              transform: [{
-                translateY: this.state.bgleft.interpolate({
-                  inputRange: [0,100],
-                  outputRange: [70,0]
-                })
-              }]
-            };
-          }
-
         return (
             <View style={styles.containerStyle}>
                 <Header
@@ -67,7 +46,8 @@ class HomeScreen extends React.Component {
                     centerText={'Home'}
                     />
 
-                <Animated.ScrollView
+                <ScrollView
+                    ref={scrollView => { this._bgScrollView = scrollView; }}
                     scrollEventThrottle={16}
                     horizontal={true}
                     snapToAlignment={'center'}
@@ -76,18 +56,23 @@ class HomeScreen extends React.Component {
                     scrollEnabled={false}
                 >
                     <Image
-                    style={[styles.bgStyle, {this.viewTranslate}]} 
+                    style={[styles.bgStyle, {left: this.state.bgLeft}]} 
                     source={require('../../assets/img/skyline.jpg')}
                     />
-                <Animated.FlatList
+                <FlatList
                         style={[styles.flatListStyle, {width: width}]}
                         scrollEventThrottle={16}
                         horizontal
                         data={ campers }
                         renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
-                        onScroll={onScroll}
+                        onScroll={e => {
+                              var scrollX = ((e.nativeEvent.contentOffset.x) * -0.7);
+                              console.log('scrollX', scrollX);
+                            //   this._bgScrollView.scrollTo({ x: scrollX }); 
+                            this.setState({bgLeft: scrollX - 480});
+                        }}
                 />
-                </Animated.ScrollView>
+                </ScrollView>
             </View>
         )
     }

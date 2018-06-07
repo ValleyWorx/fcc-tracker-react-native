@@ -2,25 +2,39 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     View,
-    Text,
     StyleSheet,
-    ScrollView,
     Image,
     FlatList,
-    Dimensions
+    Animated,
+    Dimensions,
+    Platform
 } from 'react-native';
 import Header from '../components/Header';
 import * as STYLES from '../styles';
 import {scrape} from '../actions';
 import { Tower } from '../components/Tower';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 class HomeScreen extends React.Component {
-    state = {
-        bgLeft: -480
+    constructor(props) {
+        super(props);
+        this.xOffset = new Animated.Value(0);
     }
 
     componentDidMount() {
         this.props.scrape();
+    }
+
+    viewTranslate = () => {
+        return {
+            transform: [{
+                translateX: this.xOffset.interpolate({
+                    inputRange: [0, 100],
+                    outputRange: [70, 0]
+                })
+            }]
+        };
     }
 
     render() {
@@ -37,40 +51,33 @@ class HomeScreen extends React.Component {
             { key: "Camper 7", progress: 0.75 },
             { key: "Camper 8", progress: 1.00 },
         ];
-        const {height, width} = Dimensions.get('window');
+        const {width} = Dimensions.get('window');
+
+        const onScroll = Animated.event(
+            [{ nativeEvent: { contentOffset: { x: this.xOffset } } }],
+            { useNativeDriver: true }
+        );
+        const viewTranslate = this.viewTranslate();
+
 
         return (
             <View style={styles.containerStyle}>
                 <Header
                     centerType={'text'}
                     centerText={'Home'}
-                    />
-
-                <ScrollView
-                    ref={scrollView => { this._bgScrollView = scrollView; }}
-                    scrollEventThrottle={16}
-                    horizontal={true}
-                    snapToAlignment={'center'}
-                    snapToInterval={150}
-                    decelerationRate={'fast'}
-                    scrollEnabled={false}
-                >
-                    <Image
-                    style={[styles.bgStyle, {left: this.state.bgLeft}]} 
-                    source={require('../../assets/img/skyline.jpg')}
-                    />
-                <FlatList
-                        style={[styles.flatListStyle, {width: width}]}
-                        scrollEventThrottle={16}
-                        horizontal
-                        data={ campers }
-                        renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
-                        onScroll={e => {
-                            var scrollX = ((e.nativeEvent.contentOffset.x) * -0.7); 
-                            this.setState({bgLeft: scrollX - 480});
-                        }}
                 />
-                </ScrollView>
+                <Animated.Image
+                    style={[styles.bgStyle, viewTranslate]} 
+                    source={require('../../assets/img/skyline.jpg')}
+                />
+                <AnimatedFlatList
+                    style={[styles.flatListStyle, {width: width}]}
+                    scrollEventThrottle={16}
+                    horizontal
+                    data={ campers }
+                    renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
+                    onScroll={onScroll}
+                />
             </View>
         )
     }
@@ -80,14 +87,14 @@ const styles = StyleSheet.create({
     containerStyle: STYLES.CONTAINER_STYLE,
     bgStyle: {
         position: 'absolute',
-        top: -350,
-        // left: -150,
+        top: -300,
+        left: -540,
         opacity: 0.3
     },
     flatListStyle: {
         height: '100%',
         position: 'absolute',
-        top: -38
+        top: Platform.OS === 'ios' ? 13 : 30
     }
 })
 
