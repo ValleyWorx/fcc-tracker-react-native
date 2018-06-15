@@ -1,6 +1,6 @@
 //imprort libraries for making a component
 import React from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, View, Text, Platform } from 'react-native';
 import * as STYLES from '../styles';
 import { Icon } from 'react-native-elements';
 
@@ -69,9 +69,10 @@ const styles = {
         width: "100%",
         flexDirection: 'row',
         justifyContent: "flex-start",
-        height: 70,
+        height: Platform.OS === 'android' ? 95 : 70,
         backgroundColor: STYLES.MAIN_COLOR,
         alignItems: 'center',
+        paddingTop: Platform.OS === 'android' ? 20 : 0,
     },
     leftContainer: {
         flex: 0.2,

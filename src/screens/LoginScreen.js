@@ -140,9 +140,7 @@ const styles = StyleSheet.create({
         color: '#a00',
     },
     buttonContainer: {
-        height: 60,
         alignItems: 'center',
-        justifyContent: 'center',
     },
     errorContainer: {
         height: 20,
