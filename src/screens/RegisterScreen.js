@@ -13,7 +13,7 @@ import Header from "../components/header";
 import FccButton from "../components/fcc-button";
 import * as STYLES from '../styles';
 
-export default class Registration extends React.Component {
+export default class SignUpScreen extends React.Component {
   constructor(props) {
     super(props);
     this.newUser = {
@@ -32,7 +32,8 @@ export default class Registration extends React.Component {
     return (
       <View style={styles.container}>
 			<Header
-				centerType={'logo'}
+        leftType={'back'}
+        centerType={'logo'}
 			/>
 
         <View style={styles.backgroundContainer}>

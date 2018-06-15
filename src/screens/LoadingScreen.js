@@ -9,7 +9,7 @@ class LoadingScreen extends React.Component {
         if (jwt) {
             resetNavigation(this.props.navigation, 'Tabs');
         } else {
-            resetNavigation(this.props.navigation, 'LoginScreen');
+            resetNavigation(this.props.navigation, 'LandingScreen');
         }
     }
 

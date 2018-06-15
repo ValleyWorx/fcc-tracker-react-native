@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, View, Text, Platform } from 'react-native';
 import * as STYLES from '../styles';
 import { Icon } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 
 class Header extends React.Component {
     renderLeft = (type) => {
@@ -14,7 +15,7 @@ class Header extends React.Component {
                         type={'material-community'}
                         size={40}
                         color={"#fff"}
-                        onPress={this.props.leftPress}
+                        onPress={() => this.props.navigation.goBack()}
                         underlayColor={STYLES.MAIN_COLOR}
                     />
                 )
@@ -100,4 +101,4 @@ const styles = {
     }
 };
 
-export default Header;
+export default withNavigation(Header);

@@ -17,7 +17,7 @@ export const api = async ({endpoint, method, skipAuth, body}) => {
                 headers['Authorization'] = `Bearer ${jwt}`;
             }
         } catch(e) {
-            resetNavigation({ dispatch }, 'LoginScreen');
+            resetNavigation({ dispatch }, 'LandingScreen');
             return;
         }
     }

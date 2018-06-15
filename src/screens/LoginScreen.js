@@ -57,6 +57,7 @@ class LogInComponent extends React.Component {
         return (
             <View style={styles.container}>
                 <Header
+                    leftType={'back'}
                     centerType={'logo'}
                 />
                 <View style={styles.backgroundContainer}>

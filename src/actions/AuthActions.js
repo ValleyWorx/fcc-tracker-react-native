@@ -42,6 +42,6 @@ export const logIn = (loginObject, navigation) => {
 export const logOut = (navigation) => {
     return async (dispatch) => {
         await AsyncStorage.clear();
-        resetNavigation(navigation, 'LoginScreen');
+        resetNavigation(navigation, 'LandingScreen');
     }
 }
