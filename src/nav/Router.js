@@ -46,6 +46,7 @@ const Tabs = TabNavigator({
         tabBarOptions: {
             activeTintColor: '#FFF',
             showIcon: true,
+            showLabel: false,
             style: {
                 backgroundColor: STYLES.MAIN_COLOR,
                 borderTopWidth: 0.5,

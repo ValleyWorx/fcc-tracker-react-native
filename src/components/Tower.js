@@ -2,7 +2,8 @@ import React from 'react';
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Platform
 } from 'react-native';
 import * as STYLES from '../styles';
 import SkyScraper from '../../assets/animations/skyscraper3';
@@ -43,7 +44,8 @@ export class Tower extends React.Component {
 
 const styles = StyleSheet.create({
     viewStyle: {
-        marginTop: 100
+        height: 400,
+        justifyContent: 'space-between'
     },
     textOneStyle: {
       textAlign: 'center',
@@ -53,14 +55,14 @@ const styles = StyleSheet.create({
     },
     textTwoStyle: {
       textAlign: 'center',
-      top: 45,
-      left: 10,
+      //top: 40,
+      //left: 10,
       color: STYLES.MAIN_COLOR,
       fontSize: 18,
       fontWeight: 'bold'
     },
     aniStyle: {
-        // flex: 1,
+        marginTop: Platform.OS === 'ios' ? -50 : 0,
         width: 150,
         // top: -30,
         // left: 64,

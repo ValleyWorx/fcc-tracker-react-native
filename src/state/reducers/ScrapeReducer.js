@@ -5,7 +5,6 @@ import {
 const initialState = {
   fccUserStats: {
     challenges: {},
-    algorithms: {},
     projects: {}
   }
 }
