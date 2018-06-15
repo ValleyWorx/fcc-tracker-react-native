@@ -17,7 +17,7 @@ import { FCCSpinner } from "../components/FCCSpinner";
 import * as STYLES from '../styles';
 import { logIn } from "../actions";
 
-class Registration extends React.Component {
+class LogInComponent extends React.Component {
     state = {
         email: "",
         password: "",
@@ -156,4 +156,4 @@ const mapStateToProps = state => {
     return {user, loading, errorMsg};
 }
 
-export default connect(mapStateToProps, {logIn})(Registration);
+export default connect(mapStateToProps, {logIn})(LogInComponent);
