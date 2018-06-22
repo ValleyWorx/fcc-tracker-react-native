@@ -39,21 +39,23 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        const { challenges, algorithms, projects } = this.props.fccUserStats;
+        const { challenges, projects } = this.props.fccUserStats;
 
         // TEST DATA
-        const campers = [
-            { key: "Skill 1", progress: 0.25 },
-            { key: "Skill 2", progress: 0.50 },
-            { key: "Skill 3", progress: 0.75 },
-            { key: "Skill 4", progress: 1.00 },
-            { key: "Skill 5", progress: 0.25 },
-            { key: "Skill 6", progress: 0.50 },
-            { key: "Skill 7", progress: 0.75 },
+        const certifications = [
+            { key: "Responsive\nWeb Design", progress: 0.25 },
+            { key: "Javascript\nAlgorithms and\nData Structures", progress: 0.50 },
+            { key: "Front End\nLibraries", progress: 0.75 },
+            { key: "Data\nVisualization", progress: 1.00 },
+            { key: "Apis and\nMicroservices\nCertification", progress: 0.25 },
+            { key: "Information\nSecurity\nand Quality\nAssurance", progress: 0.50 },
+            { key: "Coding \nInterview\nPrep", progress: 0.75 },
             { key: "Skill 8", progress: 1.00 },
         ];
-        const {width} = Dimensions.get('window');
+        const { height, width } = Dimensions.get('window');
         const OFFSET = (width/2) - 75
+
+        console.log(height);
 
         const onScroll = Animated.event(
             [{ nativeEvent: { contentOffset: { x: this.xOffset } } }],
@@ -77,7 +79,7 @@ class HomeScreen extends React.Component {
                         style={[styles.flatListStyle, {width: width}]}
                         scrollEventThrottle={16}
                         horizontal
-                        data={ campers }
+                        data={ certifications }
                         renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
                         onScroll={onScroll}
                         snapToInterval={150}
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     contentContainerStyle: { flex: 1, overflow: 'hidden'},
     bgStyle: {
         position: 'absolute',
-        top: IS_ANDROID ? -357 : -342,
+        top: IS_ANDROID ? -357 : -315,
         left: IS_ANDROID ? -330 : -390,
         zIndex: -5,
         opacity: 0.3

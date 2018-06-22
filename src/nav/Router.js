@@ -9,7 +9,7 @@ import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LandingScreen from '../screens/LandingScreen';
-import SignUpScreen from '../screens/RegisterScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 const Tabs = TabNavigator({
     HomeScreen: {
@@ -85,8 +85,8 @@ export const Routes = {
             header: null,
         }
     },
-    SignUpScreen: {
-        screen: SignUpScreen,
+    RegisterScreen: {
+        screen: RegisterScreen,
         mode: 'card',
         navigationOptions: {
             gesturesEnabled: false,

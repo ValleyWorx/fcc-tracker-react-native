@@ -5,15 +5,14 @@ import {
   View,
   TextInput,
   Image,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform
 } from "react-native";
-import Header from "../components/header";
+import Header from "../components/Header";
 import FccButton from "../components/fcc-button";
 import * as STYLES from '../styles';
 
-export default class SignUpScreen extends React.Component {
+export default class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
     this.newUser = {
