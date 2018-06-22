@@ -43,14 +43,14 @@ class HomeScreen extends React.Component {
 
         // TEST DATA
         const certifications = [
-            { key: "Responsive\nWeb Design", progress: 0.25 },
-            { key: "Javascript\nAlgorithms and\nData Structures", progress: 0.50 },
-            { key: "Front End\nLibraries", progress: 0.75 },
-            { key: "Data\nVisualization", progress: 1.00 },
-            { key: "Apis and\nMicroservices\nCertification", progress: 0.25 },
-            { key: "Information\nSecurity\nand Quality\nAssurance", progress: 0.50 },
-            { key: "Coding \nInterview\nPrep", progress: 0.75 },
-            { key: "Skill 8", progress: 1.00 },
+            { key: 1, title: "Responsive\nWeb Design", progress: 0.25 },
+            { key: 2, title: "Javascript\nAlgorithms and\nData Structures", progress: 0.50 },
+            { key: 3, ttile: "Front End\nLibraries", progress: 0.75 },
+            { key: 4, title: "Data\nVisualization", progress: 1.00 },
+            { key: 5, title: "Apis and\nMicroservices\nCertification", progress: 0.25 },
+            { key: 6, title: "Information\nSecurity\nand Quality\nAssurance", progress: 0.50 },
+            { key: 7, title: "Coding \nInterview\nPrep", progress: 0.75 },
+            { key: 8, title: "Skill 8", progress: 1.00 },
         ];
         const { height, width } = Dimensions.get('window');
         const OFFSET = (width/2) - 75
@@ -80,7 +80,7 @@ class HomeScreen extends React.Component {
                         scrollEventThrottle={16}
                         horizontal
                         data={ certifications }
-                        renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
+                        renderItem={({item}) => <Tower title={item.title} progress={item.progress} />}
                         onScroll={onScroll}
                         snapToInterval={150}
                         snapToAlignment={'center'}
