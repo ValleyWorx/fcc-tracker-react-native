@@ -17,7 +17,7 @@ export class Tower extends React.Component {
     }
     render() {
         const { viewStyle, textOneStyle, textTwoStyle, aniStyle } = styles;
-        const percent = this.props.progress*100;
+        const percent = Math.round(this.props.progress*100);
         return (
           <View style={viewStyle}>
             <Text style={textOneStyle}>
@@ -44,10 +44,14 @@ export class Tower extends React.Component {
 
 const styles = StyleSheet.create({
     viewStyle: {
-        height: 400,
+        height: '75%',
         justifyContent: 'space-between'
     },
     textOneStyle: {
+    
+      width: 150,
+      height: 90,
+      paddingHorizontal: 10,
       textAlign: 'center',
       color: STYLES.MAIN_COLOR,
       fontSize: 18,
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
     aniStyle: {
         marginTop: Platform.OS === 'ios' ? -50 : 0,
         width: 150,
-        // top: -30,
+        top: -30,
         // left: 64,
         // justifyContent: 'center',
         height: 300

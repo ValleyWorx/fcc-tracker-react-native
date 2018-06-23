@@ -3,10 +3,7 @@ import {
 } from '../../actions/types';
 
 const initialState = {
-  fccUserStats: {
-    challenges: {},
-    projects: {}
-  }
+  fccUserStats: []
 }
 
 export default (state = initialState, action) => {

@@ -5,14 +5,19 @@ import { api } from '../api';
 
 export const scrape = () => {
   return async (dispatch) => {
-      const response = await api({
+      const certifications = await api({
           endpoint: 'user/scrape',
           method: 'GET',
       });
-      const payload = response.result.reduce((acc, statItem) => {
-        return { ...acc, [statItem.type.toLowerCase()]: statItem }
-      }, {});
+      const payload = certifications.map((cert) => {
+         return {
+           key: cert.id.toString(),
+           title: cert.name
+                      .replace(" Certification (300 hours)", "")
+                      .replace(" (Thousands of hours of challenges)", ""),
+           progress: cert.totalCompleted/cert.totalChallenges
+        };
+      });
       dispatch({ type: SCRAPE_SUCCESS, payload });
-      //console.log('scrape results: ', response);
   }
 }
