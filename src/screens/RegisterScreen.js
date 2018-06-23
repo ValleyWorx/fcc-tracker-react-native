@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform
 } from "react-native";
-import Header from "../components/header";
+import Header from "../components/Header";
 import FccButton from "../components/fcc-button";
 import * as STYLES from '../styles';
 
