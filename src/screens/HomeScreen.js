@@ -17,6 +17,26 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const IS_ANDROID = Platform.OS === 'android';
 
+const insertNLs = (str) => {
+    if (str !== undefined) {
+        var j = 0;
+        var arr = str.split('');
+        for (let i = 0; i < arr.length; i++) {    
+            if ((arr[i] === ' ') && (j > 5)) {
+                arr[i] = '\n';
+                j = 0;
+            }
+            if ((arr[i] === ' ') && (arr[i+1] === 'V')) {
+                arr[i] = '\n';
+                j = 0;
+            }
+            j++;
+        }
+        str = arr.join('');
+    }
+    return str;
+};
+
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -39,20 +59,20 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        const { challenges, algorithms, projects } = this.props.fccUserStats;
+        const { challenges, projects } = this.props.fccUserStats;
 
         // TEST DATA
-        const campers = [
-            { key: "Skill 1", progress: 0.25 },
-            { key: "Skill 2", progress: 0.50 },
-            { key: "Skill 3", progress: 0.75 },
-            { key: "Skill 4", progress: 1.00 },
-            { key: "Skill 5", progress: 0.25 },
-            { key: "Skill 6", progress: 0.50 },
-            { key: "Skill 7", progress: 0.75 },
-            { key: "Skill 8", progress: 1.00 },
+        const certifications = [
+            { key: '1', title: "Responsive Web Design", progress: 0.25 },
+            { key: '2', title: "Javascript Algorithms and Data Structures", progress: 0.50 },
+            { key: '3', title: "Front End Libraries", progress: 0.75 },
+            { key: '4', title: "Data Visualization", progress: 1.00 },
+            { key: '5', title: "Apis and Microservices Certification", progress: 0.25 },
+            { key: '6', title: "Information Security and Quality Assurance", progress: 0.50 },
+            { key: '7', title: "Coding Interview Prep", progress: 0.75 },
+            { key: '8', title: "Skill 8", progress: 1.00 },
         ];
-        const {width} = Dimensions.get('window');
+        const { width } = Dimensions.get('window');
         const OFFSET = (width/2) - 75
 
         const onScroll = Animated.event(
@@ -60,7 +80,6 @@ class HomeScreen extends React.Component {
             { useNativeDriver: true }
         );
         const viewTranslate = this.viewTranslate();
-
 
         return (
             <View style={styles.containerStyle}>
@@ -77,8 +96,8 @@ class HomeScreen extends React.Component {
                         style={[styles.flatListStyle, {width: width}]}
                         scrollEventThrottle={16}
                         horizontal
-                        data={ campers }
-                        renderItem={({item}) => <Tower title={item.key} progress={item.progress} />}
+                        data={ certifications }
+                        renderItem={({item}) => <Tower title={insertNLs(item.title)} progress={item.progress} />}
                         onScroll={onScroll}
                         snapToInterval={150}
                         snapToAlignment={'center'}
@@ -102,7 +121,7 @@ const styles = StyleSheet.create({
     contentContainerStyle: { flex: 1, overflow: 'hidden'},
     bgStyle: {
         position: 'absolute',
-        top: IS_ANDROID ? -357 : -342,
+        top: IS_ANDROID ? -357 : -315,
         left: IS_ANDROID ? -330 : -390,
         zIndex: -5,
         opacity: 0.3

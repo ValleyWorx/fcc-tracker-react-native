@@ -24,7 +24,7 @@ class LandingScreen extends React.Component {
     }
 
     onSignUpPress = () => {
-        this.props.navigation.navigate('SignUpScreen');
+        this.props.navigation.navigate('RegisterScreen');
     }
 
     onLoginPress = () => {
