@@ -70,32 +70,33 @@ class RegisterScreen extends React.Component {
             <Text style={styles.text}>Activity Tracker!</Text>
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.setState({text})}
+              onChangeText={fname => this.setState({fname})}
               value={this.state.fname}
               placeholder={"First Name"}
               underlineColorAndroid={'transparent'}/>
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.setState({text})}
+              onChangeText={lname => this.setState({lname})}
               value={this.state.lname}
               placeholder={"Last Name"}
               underlineColorAndroid={'transparent'}/>
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.setState({text})}
+              onChangeText={email => this.setState({email})}
               value={this.state.email}
               placeholder={"Email"}
+              autoCapitalize={'none'}
               underlineColorAndroid={'transparent'}/>
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.setState({text})}
+              onChangeText={password => this.setState({password})}
               value={this.state.password}
               secureTextEntry={true}
               placeholder={"Password"}
               underlineColorAndroid={'transparent'}/>
             <TextInput
               style={styles.textInput}
-              onChangeText={text => this.setState({text})}
+              onChangeText={fccCode => this.setState({fccCode})}
               value={this.state.fccCode}
               placeholder={"FCC Code"}
               underlineColorAndroid={'transparent'}/>

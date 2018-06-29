@@ -75,14 +75,15 @@ class LogInComponent extends React.Component {
                         <Text style={styles.text}>Activity Tracker!</Text>
                         <TextInput
                             style={styles.textInput}
-                            onChangeText={text => this.setState({ email: text })}
+                            onChangeText={email => this.setState({ email })}
                             placeholder={"Email"}
+                            autoCapitalize={'none'}
                             value={this.state.email}
                             underlineColorAndroid={'transparent'}
                         />
                         <TextInput
                             style={styles.textInput}
-                            onChangeText={text => this.setState({ password: text })}
+                            onChangeText={password => this.setState({ password })}
                             placeholder={"Password"}
                             value={this.state.password}
                             secureTextEntry={true}
