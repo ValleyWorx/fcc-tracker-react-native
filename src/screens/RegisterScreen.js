@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { register } from "../actions";
 import {
   StyleSheet,
   Text,
@@ -12,20 +14,30 @@ import Header from "../components/Header";
 import FccButton from "../components/fcc-button";
 import * as STYLES from '../styles';
 
-export default class RegisterScreen extends React.Component {
+
+class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.newUser = {
-      email: "Email",
-      password: "Password",
-      fccCode: "FCC Code"
+    this.state = {
+      fname: "",
+      lname: "",
+      email: "",
+      password: "",
+      fccCode: ""
     };
     this.vOffset = Platform.OS === "ios" ? 100 : 10; //Size of vertical offset
   }
 	
-	onLoginPress = () => {
-		this.props.navigation.navigate('Tabs');
-	}
+  onLoginPress = async () => {
+    const loginObject = {
+        fname: this.state.fname, 
+        lname: this.state.lname,
+        email: this.state.email,
+        password: this.state.password,
+        fccCode: this.state.fccCode
+    }
+    this.props.register(loginObject, this.props.navigation);
+}
 
   render() {
     return (
@@ -51,18 +63,38 @@ export default class RegisterScreen extends React.Component {
             <TextInput
               style={styles.textInput}
               onChangeText={text => this.setState({ text })}
-              value={this.newUser.email}
+              value={this.state.fname}
+              placeholder={"First Name"}
+              underlineColorAndroid={'transparent'}
             />
             <TextInput
               style={styles.textInput}
               onChangeText={text => this.setState({ text })}
-              value={this.newUser.password}
+              value={this.state.lname}
+              placeholder={"Last Name"}
+              underlineColorAndroid={'transparent'}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => this.setState({ text })}
+              value={this.state.email}
+              placeholder={"Email"}
+              underlineColorAndroid={'transparent'}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => this.setState({ text })}
+              value={this.state.password}
               secureTextEntry={true}
+              placeholder={"Password"}
+              underlineColorAndroid={'transparent'}
             />
             <TextInput
               style={styles.textInput}
               onChangeText={text => this.setState({ text })}
-              value={this.newUser.fccCode}
+              value={this.state.fccCode}
+              placeholder={"FCC Code"}
+              underlineColorAndroid={'transparent'}
             />
             <FccButton buttonText={"Sign Up"} onPress={this.onLoginPress} />
           </KeyboardAvoidingView>
@@ -108,3 +140,10 @@ const styles = StyleSheet.create({
     height: "100%"
   }
 });
+
+const mapStateToProps = state => {
+  const {loading, errorMsg} = state.auth;
+  return {loading, errorMsg};
+}
+
+export default connect(mapStateToProps, {register})(RegisterScreen);

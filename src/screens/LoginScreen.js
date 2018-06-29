@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-    const {user, loading, errorMsg} = state.auth;
-    return {user, loading, errorMsg};
+    const {loading, errorMsg} = state.auth;
+    return {loading, errorMsg};
 }
 
 export default connect(mapStateToProps, {logIn})(LogInComponent);

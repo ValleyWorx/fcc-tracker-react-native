@@ -11,18 +11,22 @@ import { AsyncStorage } from 'react-native';
 import { resetNavigation } from './Helpers';
 
 export const logIn = (loginObject, navigation) => {
+    return saveAuth('auth', loginObject, navigation)
+};
+
+export const register = (loginObject, navigation) => {
+    return saveAuth('user/register', loginObject, navigation)
+};
+
+export const saveAuth = (endpoint, loginObject, navigation) => {
     return async (dispatch) => {
         dispatch({type: AUTH_LOADING, payload: true});
-        const {email, password} = loginObject;
         try {
             const response = await api({
-                endpoint: 'auth',
+                endpoint,
                 method: 'POST', 
                 skipAuth: true,
-                body: {
-                    email: email,
-                    password: password,
-                }
+                body: loginObject
             });
             console.log('response', response);
             const {jwt, refreshToken} = response;
