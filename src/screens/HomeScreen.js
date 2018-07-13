@@ -81,6 +81,8 @@ class HomeScreen extends React.Component {
         );
         const viewTranslate = this.viewTranslate();
 
+        //console.log(this.props.fccUserStats);
+
         return (
             <View style={styles.containerStyle}>
                 <Header

@@ -13,11 +13,16 @@ let { Lottie } = DangerZone;
 export class Tower extends React.Component {
     componentDidMount() { 
         const pct = 900 * this.props.progress;
+        
+        if (pct === 0){
+            return;
+        }
         this.animation.play(0, pct);
     }
     render() {
         const { viewStyle, textOneStyle, textTwoStyle, aniStyle } = styles;
         const percent = Math.round(this.props.progress*100);
+
         return (
           <View style={viewStyle}>
             <Text style={textOneStyle}>
