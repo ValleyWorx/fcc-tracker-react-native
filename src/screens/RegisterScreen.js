@@ -10,25 +10,24 @@ import {
   KeyboardAvoidingView,
   Platform
 } from "react-native";
+import { Icon } from 'react-native-elements';
 import Header from "../components/Header";
 import FccButton from "../components/fcc-button";
 import { FCCSpinner } from "../components/FCCSpinner";
 import * as STYLES from '../styles';
 
 class RegisterScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fname: "",
-      lname: "",
-      email: "",
-      password: "",
-      fccCode: ""
-    };
-    this.vOffset = Platform.OS === "ios"
-      ? 100
-      : 10; //Size of vertical offset
-  }
+  state = {
+    fname: "",
+    lname: "",
+    email: "",
+    password: "",
+    fccCode: "",
+    showPassword: true,
+  };
+  vOffset = Platform.OS === "ios"
+    ? 100
+    : 10; //Size of vertical offset
 
   onRegisterPress = async () => {
     const registerObject = {
@@ -87,13 +86,24 @@ class RegisterScreen extends React.Component {
               placeholder={"Email"}
               autoCapitalize={'none'}
               underlineColorAndroid={'transparent'}/>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={password => this.setState({password})}
-              value={this.state.password}
-              secureTextEntry={true}
-              placeholder={"Password"}
-              underlineColorAndroid={'transparent'}/>
+            <View>
+              <Icon
+                containerStyle={styles.eyeball}
+                color={STYLES.MAIN_COLOR}
+                name={'ios-eye'}
+                type={'ionicon'}
+                size={25}
+                onPress={() => this.setState({showPassword: !this.state.showPassword})}
+              />  
+              <TextInput
+                style={[styles.textInput, styles.pwd]}
+                onChangeText={password => this.setState({password})}
+                value={this.state.password}
+                secureTextEntry={this.state.showPassword}
+                placeholder={"Password"}
+              />
+            </View>
+                underlineColorAndroid={'transparent'}
             <TextInput
               style={styles.textInput}
               onChangeText={fccCode => this.setState({fccCode})}
@@ -134,6 +144,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 5
+  },
+  pwd: {
+    paddingRight: 35,
+  },
+  eyeball: {
+    position: 'absolute',
+    top:12
+    ,
+    right: 10,
+    zIndex: 2
   },
   text: {
     marginBottom: 50,
