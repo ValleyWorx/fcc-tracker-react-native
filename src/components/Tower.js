@@ -6,8 +6,24 @@ import {
   Platform
 } from 'react-native';
 import * as STYLES from '../styles';
-import SkyScraper from '../../assets/animations/skyscraper3';
+import Building1 from '../../assets/animations/skyscraper3';
+import Building2 from '../../assets/animations/carrie1';
+import Building3 from '../../assets/animations/monica1';
+import Building4 from '../../assets/animations/celina';
+import Building5 from '../../assets/animations/carrie2';
+import Building6 from '../../assets/animations/monica2';
 import { DangerZone } from 'expo';
+
+const BUILDINGS = [
+    Building1,
+    Building2,
+    Building3,
+    //Building4,
+    Building5,
+    //Building6,
+    //Building1
+]
+
 let { Lottie } = DangerZone;
 
 export class Tower extends React.Component {
@@ -17,16 +33,18 @@ export class Tower extends React.Component {
         if (pct === 0){
             return;
         }
+        // this.animation.play();
         this.animation.play(0, pct);
     }
     render() {
+        const { title, index, progress } = this.props;
         const { viewStyle, textOneStyle, textTwoStyle, aniStyle } = styles;
-        const percent = Math.round(this.props.progress*100);
+        const percent = Math.round(progress*100);
 
         return (
           <View style={viewStyle}>
             <Text style={textOneStyle}>
-              {this.props.title}
+              {title}
             </Text>
             <Lottie
                 ref={animation => {
@@ -37,7 +55,7 @@ export class Tower extends React.Component {
                 style={aniStyle}
                 speed={10}
                 loop={false}
-                source={SkyScraper}
+                source={BUILDINGS[index%BUILDINGS.length]}
             />
             <Text style={textTwoStyle}>
               {percent}%

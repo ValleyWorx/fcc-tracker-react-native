@@ -101,7 +101,12 @@ class HomeScreen extends React.Component {
                             scrollEventThrottle={16}
                             horizontal
                             data={ this.props.fccUserStats }
-                            renderItem={({item}) => <Tower title={(item.title)} progress={item.progress} />}
+                            renderItem={({item, index}) => 
+                            <Tower
+                                title={item.title}
+                                index={index}
+                                progress={item.progress}
+                            />}
                             onScroll={onScroll}
                             snapToInterval={150}
                             snapToAlignment={'center'}
